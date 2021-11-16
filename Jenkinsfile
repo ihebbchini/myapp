@@ -8,7 +8,7 @@
 			      script{
 				  checkout([$class: 'GitSCM', branches: [[name: '*/master']],
 				      userRemoteConfigs: [[
-					  credentialsId: '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',
+					  credentialsId: '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',
 					  url: 'https://github.com/ihebbchini/myapp']]])
 			      }
 		          }
