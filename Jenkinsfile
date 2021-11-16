@@ -6,19 +6,37 @@
 		      stage('Pull') {
 			   steps{
 			      script{
-				  checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+				  checkout([$class: 'GitSCM', branches: [[name: '*/main']],
 				      userRemoteConfigs: [[
-					  credentialsId: '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',
-					  url: 'https://github.com/ihebbchini/myapp.git']]])
+					  credentialsId: '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',
+					  url: 'https://github.com/ihebbchini/myapp']]])
 			      }
 		          }
 		     }
-		      stage('Build') {
-			   steps{
-			      script{
-			      sh "ansible-playbook ansible/build.yml -i ansible/inventory/host.yml "
-			      }
-		          }
-		     }
+			stage('Build') {
+                           steps{
+                              script{
+				sh " npm install && ansible-playbook ansible/build.yml -i ansible/inventory/host.yml"
+				}
+                          }
+                     }
+			stage('Docker') {
+                           steps{
+                              script{
+                                sh "ansible-playbook ansible/docker.yml -i ansible/inventory/host.yml"
+                                }
+                          }
+                     }
+			stage('Docker-Registry') {
+                           steps{
+                              script{
+                                sh "ansible-playbook ansible/docker-registry.yml -i ansible/inventory/host.yml"
+                                }
+                          }
+                     }
+
+
+
+
 	     }
 	     }

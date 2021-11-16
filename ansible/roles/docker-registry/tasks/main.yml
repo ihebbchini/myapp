@@ -1,0 +1,11 @@
+---
+# tasks file for docker-registry
+
+ - name: tag and push
+   docker_image:
+      name: devops
+      repository: 4arctic2/devops
+      tag: latest
+      push: yes
+      source: local
+
